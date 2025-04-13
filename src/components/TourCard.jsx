@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 
 // TourCard renders individual details
-const TourCard = ({id, name, info, price, Image, onRemove}) =>{
+const TourCard = ({id, name, info = "", price, image, onRemove}) => {
+    info = typeof info === "string" ? info : "";
     // toggle read more / show less
     const [readMore, setReadMore] =useState(false);
 
@@ -11,24 +12,27 @@ return (
 
         <header className="tour-header">
             <h2>{name}</h2>
-            <h4> className="tour-price"{'>'}${price}</h4>
+            <h4 className="tour-price">${price}</h4>
         </header>
 
         <p>
-            //* Show full description if readMore is true *//
-            {readMore ? info : '${info.substring(0, 100)}...'}
+            {/*Show full description if readMore is true*/}
+            {readMore ? info : info.length > 300 ? `${info.substring(0, 300)}...` : info}
             <button
-            className="read-more-btn"
-            onClick={() => setReadMore(!readMore)}
+                className="read-more-btn"
+                onClick={() => setReadMore(!readMore)}
             >
-                //* Button Text Goes Here*//
                 {readMore ? "Show Less" : "Read More"}
             </button>
         </p>
 
-//* Button to remove*//
+{/* Button to remove */}
         <button className="btn-remove" onClick={() => {
-            onRemove(id)
+            if (typeof onRemove === "function") {
+                onRemove(id);
+            } else {
+                console.error("onRemove is not a function");
+            }
         }}>Remove Tour</button>
     </article>
 );
