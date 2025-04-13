@@ -11,7 +11,7 @@ return (
 
         <header className="tour-header">
             <h2>{name}</h2>
-            <h4> className="tour-price">${price}</h4>
+            <h4> className="tour-price"{'>'}${price}</h4>
         </header>
 
         <p>
